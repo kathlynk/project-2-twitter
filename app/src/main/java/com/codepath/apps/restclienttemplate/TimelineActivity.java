@@ -8,6 +8,7 @@ import okhttp3.Headers;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -17,6 +18,10 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
+
+// Toolbar
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class TimelineActivity extends AppCompatActivity {
 
@@ -33,6 +38,14 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+
+        // Find the toolbar view inside the activity layout
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Sets the Toolbar to act as the ActionBar for this Activity window
+        // Make sure the toolbar exists in the activity and is not null
+        setSupportActionBar(toolbar);
+        // Hide Toolbar Title
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         client = TwitterApp.getRestClient(this);
 
@@ -67,10 +80,20 @@ public class TimelineActivity extends AppCompatActivity {
                 loadMoreData();
             }
         };
+
+
         // Adds the scroll listener to RecyclerView
         rvTweets.addOnScrollListener(scrollListener);
 
         populateHomeTimeline();
+    }
+
+    // Menu icons are inflated just as they were with actionbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     private void loadMoreData() {
