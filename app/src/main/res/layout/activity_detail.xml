@@ -31,20 +31,42 @@
         app:contentInsetStart="0dp"
         app:titleTextColor="@android:color/white">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
-            android:text="Tweet"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/tvDetailTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/btDetailBack"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="15dp"
+                android:text="Tweet"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btDetailBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentTop="false"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:tint="@color/twitter_icon_selected_blue"
+                app:srcCompat="?attr/homeAsUpIndicator" />
+
+        </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+
 
     <TextView
         android:id="@+id/tvName"
@@ -91,6 +113,9 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:autoLink="all"
+        android:linksClickable="true"
         android:textColor="@android:color/black"
         android:textSize="22sp"
         tools:text="Check this out hehe XD" />
@@ -104,6 +129,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/tvScreenName"
+        android:text="•"
         android:textColor="@color/twitter_secondary_text"
         android:textSize="16sp"
         tools:text="•" />

@@ -55,7 +55,8 @@ public class Tweet {
     }
 
     public String getFormattedTimeStamp() {
-        return TimeFormatter.getTimeDifference(createdAt);
+        String formattedString = TimeFormatter.getTimeDifference(createdAt);
+        return formattedString;
     }
 
 
