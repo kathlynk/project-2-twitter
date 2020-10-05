@@ -34,6 +34,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.malmstein:fenster:0.0.2'
+    }
 }
 
 dependencies {
@@ -58,5 +72,7 @@ dependencies {
     // Parceler
     implementation 'org.parceler:parceler-api:1.1.12'
     annotationProcessor 'org.parceler:parceler:1.1.12'
+    // Simple Video View
+    implementation 'com.klinkerapps:simple_videoview:1.2.4'
 
 }

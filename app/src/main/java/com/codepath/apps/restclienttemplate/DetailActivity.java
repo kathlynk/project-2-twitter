@@ -5,20 +5,29 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.apps.restclienttemplate.models.Entities;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.models.User;
+import com.klinker.android.simple_videoview.SimpleVideoView;
 
 import org.parceler.Parcels;
 
+import java.io.IOException;
+
 public class DetailActivity extends AppCompatActivity {
+
+
+    public static final String TAG = "DetailACTIVITY";
 
     TextView tvName;
     TextView tvScreenName;
@@ -27,6 +36,9 @@ public class DetailActivity extends AppCompatActivity {
     ImageView ivProfileImage;
     ImageView ivTweetPhoto;
     ImageButton btDetailBack;
+    SimpleVideoView vvTweetVideo;
+
+
 
 
     @Override
@@ -45,6 +57,8 @@ public class DetailActivity extends AppCompatActivity {
         ivProfileImage = findViewById(R.id.ivProfileImage);
         btDetailBack = findViewById(R.id.btDetailBack);
         ivTweetPhoto = findViewById(R.id.ivTweetPhoto);
+        vvTweetVideo = (SimpleVideoView) findViewById(R.id.vvTweetVideo);
+
 
         btDetailBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +67,8 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
+
+        final Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
         User user = Parcels.unwrap(getIntent().getParcelableExtra("user"));
         Entities entities = Parcels.unwrap(getIntent().getParcelableExtra("entities"));
 
@@ -67,6 +82,34 @@ public class DetailActivity extends AppCompatActivity {
                 .into(ivProfileImage);
 
         if (tweet.entities.media != null) {
+
+            // If tweet has a video
+            if (tweet.entities.mediaType.equals("video")) {
+
+                ivTweetPhoto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.i(TAG, tweet.entities.videoURL);
+
+                        Glide.with(ivTweetPhoto).clear(ivTweetPhoto);
+                        ivTweetPhoto.setVisibility(View.GONE);
+
+                        vvTweetVideo.start(tweet.entities.videoURL);
+
+                        vvTweetVideo.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (vvTweetVideo.isPlaying())
+                                    vvTweetVideo.pause();
+                                else
+                                    vvTweetVideo.play();
+                            }
+                        });
+
+
+                    }
+                });
+            }
             ivTweetPhoto.setVisibility(View.VISIBLE);
             Glide.with(ivTweetPhoto)
                     .load(tweet.entities.mediaURL)
@@ -78,4 +121,13 @@ public class DetailActivity extends AppCompatActivity {
             ivTweetPhoto.setVisibility(View.GONE);
         }
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        vvTweetVideo.release();
+    }
+
+
 }
+

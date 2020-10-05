@@ -102,9 +102,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     .into(ivProfileImage);
             // Load tweet images
             if (tweet.entities != null) {
-                Log.i(TAG, " Has Media");
                 // Tweet has video
-                if (tweet.entities.videoURL != null) {
+                if (tweet.entities.mediaType.equals("video")) {
                    Log.i(TAG, "Received video URL " + tweet.entities.videoURL);
                 }
                 // Tweet has photo
