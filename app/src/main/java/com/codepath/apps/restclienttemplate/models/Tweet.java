@@ -28,7 +28,9 @@ public class Tweet {
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.id = jsonObject.getLong("id");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
-        tweet.entities = Entities.fromJson(jsonObject.getJSONObject("entities"));
+        if (jsonObject.has("extended_entities")) {
+            tweet.entities = Entities.fromJson(jsonObject.getJSONObject("extended_entities"));
+        }
         return tweet;
     }
 

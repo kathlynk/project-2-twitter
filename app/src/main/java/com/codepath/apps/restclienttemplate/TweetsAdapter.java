@@ -101,18 +101,26 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     .circleCrop()
                     .into(ivProfileImage);
             // Load tweet images
-            if (tweet.entities.media != null) {
-                ivTweetPhoto.setVisibility(View.VISIBLE);
-                Glide.with(context)
-                        .load(tweet.entities.mediaURL)
-                        .fitCenter()
-                        .transform(new RoundedCorners(30))
-                        .into(ivTweetPhoto);
-            }
-            else {
+            if (tweet.entities != null) {
+                Log.i(TAG, " Has Media");
+                // Tweet has video
+                if (tweet.entities.videoURL != null) {
+                   Log.i(TAG, "Received video URL " + tweet.entities.videoURL);
+                }
+                // Tweet has photo
+                if (tweet.entities.mediaURL != null) {
+                    ivTweetPhoto.setVisibility(View.VISIBLE);
+                    Glide.with(context)
+                            .load(tweet.entities.mediaURL)
+                            .fitCenter()
+                            .transform(new RoundedCorners(30))
+                            .into(ivTweetPhoto);
+                }
+            } else {
                 Glide.with(context).clear(ivTweetPhoto);
                 ivTweetPhoto.setVisibility(View.GONE);
             }
+
             // Parceler to New Activity
             container.setOnClickListener(new View.OnClickListener()
             {

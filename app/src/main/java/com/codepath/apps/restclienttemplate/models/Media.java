@@ -16,6 +16,8 @@ public class Media {
     public static final String TAG = "MediaModel";
     private static String mediaType;
     public static String mediaURL;
+    public static String videoURL;
+    private static Video video;
 
     public Media() {};
 
@@ -28,7 +30,6 @@ public class Media {
     public static List<Media> fromJsonArray(JSONArray jsonArray) throws JSONException {
         List<Media> media = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
-
 
             media.add(fromJson(jsonArray.getJSONObject(i)));
 
@@ -44,6 +45,13 @@ public class Media {
                 Log.i(TAG, "Photo URL " + currentObject.getString("media_url_https"));
             }
 
+            if (currentObject.has("video_info")) {
+                Log.i(TAG, "Video: " + jsonArray.getJSONObject(i).toString() );
+                video =  Video.fromJson(jsonArray.getJSONObject(i).getJSONObject("video_info"));
+                Log.i(TAG, "has Video Info.");
+                videoURL = video.getVideoURL();
+                Log.i(TAG, "Media Model URL: " + videoURL);
+            }
 
 
             Log.i(TAG, "Media: " + media.get(i).toString());
@@ -57,5 +65,13 @@ public class Media {
 
     public static String getMediaURL() {
         return mediaURL;
+    }
+
+    public static Video getVideo() {
+        return video;
+    }
+
+    public static String getVideoURL() {
+        return videoURL;
     }
 }

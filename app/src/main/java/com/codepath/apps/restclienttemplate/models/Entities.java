@@ -18,6 +18,8 @@ public class Entities {
     public List<Media> media;
     public String mediaURL;
     public String mediaType;
+    public String videoURL;
+    public Video video = null;
 
     public Entities() {};
 
@@ -28,6 +30,12 @@ public class Entities {
             Log.i(TAG, entities.media.toString());
             entities.mediaURL = Media.getMediaURL();
             entities.mediaType = Media.getMediaType();
+            Log.i(TAG, "entities.mediaType: " + entities.mediaType);
+            if (entities.mediaType.equals("video")) {
+                entities.video = Media.getVideo();
+                Log.i(TAG, "Type is Video");
+                entities.videoURL = Media.getVideoURL();
+            }
         }
 
         return entities;
