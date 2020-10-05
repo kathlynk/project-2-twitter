@@ -3,5 +3,6 @@
     <color name="twitter_gray">#D3DCE2</color>
     <color name="twitter_icon_gray">#657786</color>
     <color name="twitter_icon_selected_blue">#1DA1F2</color>
+    <color name="twitter_secondary_text">#6B7D8B</color>
 
 </resources>
