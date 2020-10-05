@@ -140,7 +140,10 @@ public class TimelineActivity extends AppCompatActivity {
                     Log.i(TAG, "Profile Image URL" + logProfileImageUrl);
                     ImageView loggedInUserImage = findViewById(R.id.ivLogInPic);
                     Toolbar myToolbar = findViewById(R.id.toolbar);
-                    Glide.with(myToolbar).load(logProfileImageUrl).into(loggedInUserImage);
+                    Glide.with(myToolbar)
+                            .load(logProfileImageUrl)
+                            .circleCrop()
+                            .into(loggedInUserImage);
 
                 } catch (JSONException e) {
                     Log.e(TAG, "Json User Login Exception", e);
