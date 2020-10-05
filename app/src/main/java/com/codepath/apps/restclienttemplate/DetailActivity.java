@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.codepath.apps.restclienttemplate.models.Entities;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.models.User;
 
@@ -23,6 +25,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView tvTimeStamp;
     TextView tvBody;
     ImageView ivProfileImage;
+    ImageView ivTweetPhoto;
     ImageButton btDetailBack;
 
 
@@ -41,6 +44,7 @@ public class DetailActivity extends AppCompatActivity {
         tvBody = findViewById(R.id.tvBody);
         ivProfileImage = findViewById(R.id.ivProfileImage);
         btDetailBack = findViewById(R.id.btDetailBack);
+        ivTweetPhoto = findViewById(R.id.ivTweetPhoto);
 
         btDetailBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +55,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
         User user = Parcels.unwrap(getIntent().getParcelableExtra("user"));
+        Entities entities = Parcels.unwrap(getIntent().getParcelableExtra("entities"));
 
         tvName.setText(user.getName());
         tvScreenName.setText(user.getScreenName());
@@ -61,5 +66,16 @@ public class DetailActivity extends AppCompatActivity {
                 .circleCrop()
                 .into(ivProfileImage);
 
+        if (tweet.entities.media != null) {
+            ivTweetPhoto.setVisibility(View.VISIBLE);
+            Glide.with(ivTweetPhoto)
+                    .load(tweet.entities.mediaURL)
+                    .fitCenter()
+                    .transform(new RoundedCorners(30))
+                    .into(ivTweetPhoto);
+        } else {
+            Glide.with(ivTweetPhoto).clear(ivTweetPhoto);
+            ivTweetPhoto.setVisibility(View.GONE);
+        }
     }
 }

@@ -17,6 +17,7 @@ public class Tweet {
     public String createdAt;
     public long id;
     public User user;
+    public Entities entities;
 
     // Needed by parceler
     public Tweet() {}
@@ -27,6 +28,7 @@ public class Tweet {
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.id = jsonObject.getLong("id");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+        tweet.entities = Entities.fromJson(jsonObject.getJSONObject("entities"));
         return tweet;
     }
 
