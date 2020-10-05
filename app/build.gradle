@@ -42,6 +42,7 @@ dependencies {
     implementation 'commons-codec:commons-codec:1.10'
     // Toolbar
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    // Coordinating layout
     implementation 'com.google.android.material:material:1.0.0-rc01'
     // Glide for remote image loading
     implementation 'com.github.bumptech.glide:glide:4.11.0'
@@ -54,5 +55,8 @@ dependencies {
     implementation 'com.facebook.stetho:stetho:1.5.1'
     // Swipe to Refresh
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+    // Parceler
+    implementation 'org.parceler:parceler-api:1.1.12'
+    annotationProcessor 'org.parceler:parceler:1.1.12'
 
 }
