@@ -1,5 +1,7 @@
 package com.codepath.apps.restclienttemplate.models;
 
+import android.util.Log;
+
 import com.codepath.apps.restclienttemplate.TimeFormatter;
 
 import org.json.JSONArray;
@@ -18,6 +20,9 @@ public class Tweet {
     public long id;
     public User user;
     public Entities entities;
+    
+    public int retweetCt;
+    public int favoriteCt;
 
     // Needed by parceler
     public Tweet() {}
@@ -31,6 +36,10 @@ public class Tweet {
         if (jsonObject.has("extended_entities")) {
             tweet.entities = Entities.fromJson(jsonObject.getJSONObject("extended_entities"));
         }
+
+        tweet.retweetCt = jsonObject.getInt("retweet_count");
+        tweet.favoriteCt = jsonObject.getInt("favorite_count");
+
         return tweet;
     }
 

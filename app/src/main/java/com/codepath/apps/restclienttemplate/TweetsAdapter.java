@@ -79,6 +79,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvScreenName;
         TextView tvName;
         TextView tvTimeStamp;
+        TextView tvRetweetCt;
+        TextView tvFavoriteCt;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,6 +91,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvTimeStamp = itemView.findViewById(R.id.tvTimeStamp);
             container = itemView.findViewById(R.id.container); // To move activities
             tvName = itemView.findViewById(R.id.tvName);
+
+            tvRetweetCt = itemView.findViewById(R.id.tvRetweetCt);
+            tvFavoriteCt = itemView.findViewById(R.id.tvFavCt);
         }
 
         public void bind(final Tweet tweet) {
@@ -96,6 +101,17 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvScreenName.setText(tweet.user.screenName);
             tvName.setText(tweet.user.name);
             tvTimeStamp.setText(tweet.getFormattedTimeStamp());
+
+            tvFavoriteCt.setText(Integer.toString(tweet.favoriteCt));
+            tvRetweetCt.setText(Integer.toString(tweet.retweetCt));
+
+            if (tvFavoriteCt.getText().toString().equals("0")) {
+                tvFavoriteCt.setText("");
+            }
+            if (tvRetweetCt.getText().toString().equals("0")) {
+                tvRetweetCt.setText("");
+            }
+
             Glide.with(context)
                     .load(tweet.user.profileImageUrl)
                     .circleCrop()

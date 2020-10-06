@@ -35,6 +35,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView tvBody;
     ImageView ivProfileImage;
     ImageView ivTweetPhoto;
+    ImageView ivPlayButton;
     ImageButton btDetailBack;
     SimpleVideoView vvTweetVideo;
 
@@ -58,6 +59,7 @@ public class DetailActivity extends AppCompatActivity {
         btDetailBack = findViewById(R.id.btDetailBack);
         ivTweetPhoto = findViewById(R.id.ivTweetPhoto);
         vvTweetVideo = (SimpleVideoView) findViewById(R.id.vvTweetVideo);
+        ivPlayButton = findViewById(R.id.ivPlayButton);
 
 
         btDetailBack.setOnClickListener(new View.OnClickListener() {
@@ -82,10 +84,12 @@ public class DetailActivity extends AppCompatActivity {
                 .into(ivProfileImage);
 
         if (tweet.entities != null) {
-
+            ivPlayButton.setVisibility(View.VISIBLE);
             // If tweet has a video
             if (tweet.entities.mediaType.equals("video")) {
                 vvTweetVideo.setVisibility(View.VISIBLE);
+
+                ivTweetPhoto.setVisibility(View.INVISIBLE);
                 ivTweetPhoto.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -93,16 +97,20 @@ public class DetailActivity extends AppCompatActivity {
 
                         Glide.with(ivTweetPhoto).clear(ivTweetPhoto);
                         ivTweetPhoto.setVisibility(View.GONE);
-
+                        ivPlayButton.setVisibility(View.INVISIBLE);
                         vvTweetVideo.start(tweet.entities.videoURL);
 
                         vvTweetVideo.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                if (vvTweetVideo.isPlaying())
+                                if (vvTweetVideo.isPlaying()) {
+                                    ivPlayButton.setVisibility(View.VISIBLE);
                                     vvTweetVideo.pause();
-                                else
+                                }
+                                else {
+                                    ivPlayButton.setVisibility(View.INVISIBLE);
                                     vvTweetVideo.play();
+                                }
                             }
                         });
 
@@ -111,6 +119,7 @@ public class DetailActivity extends AppCompatActivity {
                 });
             }
             ivTweetPhoto.setVisibility(View.VISIBLE);
+            ivPlayButton.setVisibility(View.INVISIBLE);
             Glide.with(ivTweetPhoto)
                     .load(tweet.entities.mediaURL)
                     .fitCenter()
@@ -120,6 +129,7 @@ public class DetailActivity extends AppCompatActivity {
             Glide.with(ivTweetPhoto).clear(ivTweetPhoto);
             ivTweetPhoto.setVisibility(View.GONE);
             vvTweetVideo.setVisibility(View.INVISIBLE);
+            ivPlayButton.setVisibility(View.INVISIBLE);
         }
     }
 
