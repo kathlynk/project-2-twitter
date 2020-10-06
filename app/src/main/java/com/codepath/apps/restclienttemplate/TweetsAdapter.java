@@ -1,24 +1,33 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
 
     Context context;
     List<Tweet> tweets;
+
+    public static final String TAG = "TweetsAdapter";
 
     // Pass in the context and list of tweets
     public TweetsAdapter(Context context, List<Tweet> tweets) {
@@ -63,24 +72,83 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     // Define a viewholder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        RelativeLayout container; // To move activities
         ImageView ivProfileImage;
+        ImageView ivTweetPhoto;
         TextView tvBody;
         TextView tvScreenName;
+        TextView tvName;
         TextView tvTimeStamp;
+        TextView tvRetweetCt;
+        TextView tvFavoriteCt;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
+            ivTweetPhoto = itemView.findViewById(R.id.ivTweetPhoto);
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvTimeStamp = itemView.findViewById(R.id.tvTimeStamp);
+            container = itemView.findViewById(R.id.container); // To move activities
+            tvName = itemView.findViewById(R.id.tvName);
+
+            tvRetweetCt = itemView.findViewById(R.id.tvRetweetCt);
+            tvFavoriteCt = itemView.findViewById(R.id.tvFavCt);
         }
 
-        public void bind(Tweet tweet) {
+        public void bind(final Tweet tweet) {
             tvBody.setText(tweet.body);
             tvScreenName.setText(tweet.user.screenName);
+            tvName.setText(tweet.user.name);
             tvTimeStamp.setText(tweet.getFormattedTimeStamp());
-            Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
+
+            tvFavoriteCt.setText(Integer.toString(tweet.favoriteCt));
+            tvRetweetCt.setText(Integer.toString(tweet.retweetCt));
+
+            if (tvFavoriteCt.getText().toString().equals("0")) {
+                tvFavoriteCt.setText("");
+            }
+            if (tvRetweetCt.getText().toString().equals("0")) {
+                tvRetweetCt.setText("");
+            }
+
+            Glide.with(context)
+                    .load(tweet.user.profileImageUrl)
+                    .circleCrop()
+                    .into(ivProfileImage);
+            // Load tweet images
+            if (tweet.entities != null) {
+                // Tweet has video
+                if (tweet.entities.mediaType.equals("video")) {
+                   Log.i(TAG, "Received video URL " + tweet.entities.videoURL);
+                }
+                // Tweet has photo
+                if (tweet.entities.mediaURL != null) {
+                    ivTweetPhoto.setVisibility(View.VISIBLE);
+                    Glide.with(context)
+                            .load(tweet.entities.mediaURL)
+                            .fitCenter()
+                            .transform(new RoundedCorners(30))
+                            .into(ivTweetPhoto);
+                }
+            } else {
+                Glide.with(context).clear(ivTweetPhoto);
+                ivTweetPhoto.setVisibility(View.GONE);
+            }
+
+            // Parceler to New Activity
+            container.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, DetailActivity.class);
+                    i.putExtra("name", tweet.user.name);
+                    i.putExtra("tweet", Parcels.wrap(tweet));
+                    i.putExtra("user", Parcels.wrap(tweet.user));
+                    i.putExtra("entities", Parcels.wrap(tweet.entities));
+                    context.startActivity(i);
+                }
+            });
         }
     }
 }

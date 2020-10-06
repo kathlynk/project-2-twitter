@@ -6,17 +6,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import okhttp3.Headers;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+// Toolbar
+import androidx.appcompat.widget.Toolbar;
 
 public class TimelineActivity extends AppCompatActivity {
 
@@ -33,6 +42,14 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+
+        // Find the toolbar view inside the activity layout
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Sets the Toolbar to act as the ActionBar for this Activity window
+        // Make sure the toolbar exists in the activity and is not null
+        setSupportActionBar(toolbar);
+        // Hide Toolbar Title
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         client = TwitterApp.getRestClient(this);
 
@@ -67,10 +84,21 @@ public class TimelineActivity extends AppCompatActivity {
                 loadMoreData();
             }
         };
+
+
         // Adds the scroll listener to RecyclerView
         rvTweets.addOnScrollListener(scrollListener);
 
         populateHomeTimeline();
+        displayCurrentUserInfo();
+    }
+
+    // Menu icons are inflated just as they were with actionbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     private void loadMoreData() {
@@ -98,6 +126,36 @@ public class TimelineActivity extends AppCompatActivity {
             }
         }, tweets.get(tweets.size()-1).id);
 
+    }
+
+    // Display profile image for logged in user at top menu bar
+    private void displayCurrentUserInfo() {
+        client.getLoggedUserInfo(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                Log.i(TAG, "OnSuccess for displayCurrentUser!" + json.toString());
+                JSONObject jsonObject = json.jsonObject;
+                try {
+                    String logProfileImageUrl = jsonObject.getString("profile_image_url_https");
+                    Log.i(TAG, "Profile Image URL" + logProfileImageUrl);
+                    ImageView loggedInUserImage = findViewById(R.id.ivLogInPic);
+                    Toolbar myToolbar = findViewById(R.id.toolbar);
+                    Glide.with(myToolbar)
+                            .load(logProfileImageUrl)
+                            .circleCrop()
+                            .into(loggedInUserImage);
+
+                } catch (JSONException e) {
+                    Log.e(TAG, "Json User Login Exception", e);
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.i(TAG, "onFailure for displayCurrentUser!" + response, throwable);
+            }
+        });
     }
 
     private void populateHomeTimeline() {

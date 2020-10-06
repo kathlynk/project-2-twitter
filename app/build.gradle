@@ -34,13 +34,30 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.malmstein:fenster:0.0.2'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: '*.jar')
     implementation 'com.codepath.libraries:android-oauth-handler:2.2.0'
     implementation 'commons-codec:commons-codec:1.10'
+    // Toolbar
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    // Coordinating layout
+    implementation 'com.google.android.material:material:1.0.0-rc01'
     // Glide for remote image loading
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
@@ -52,5 +69,10 @@ dependencies {
     implementation 'com.facebook.stetho:stetho:1.5.1'
     // Swipe to Refresh
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+    // Parceler
+    implementation 'org.parceler:parceler-api:1.1.12'
+    annotationProcessor 'org.parceler:parceler:1.1.12'
+    // Simple Video View
+    implementation 'com.klinkerapps:simple_videoview:1.2.4'
 
 }
