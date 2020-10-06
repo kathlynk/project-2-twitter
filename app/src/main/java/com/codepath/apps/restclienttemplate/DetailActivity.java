@@ -23,6 +23,7 @@ import com.klinker.android.simple_videoview.SimpleVideoView;
 import org.parceler.Parcels;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -33,6 +34,9 @@ public class DetailActivity extends AppCompatActivity {
     TextView tvScreenName;
     TextView tvTimeStamp;
     TextView tvBody;
+    TextView tvTimeDate;
+    TextView tvRetweetCt;
+    TextView tvFavoriteCt;
     ImageView ivProfileImage;
     ImageView ivTweetPhoto;
     ImageView ivPlayButton;
@@ -55,6 +59,9 @@ public class DetailActivity extends AppCompatActivity {
         tvScreenName = findViewById(R.id.tvScreenName);
         tvTimeStamp = findViewById(R.id.tvTimeStamp);
         tvBody = findViewById(R.id.tvBody);
+        tvTimeDate = findViewById(R.id.tvTimeDate);
+        tvRetweetCt = findViewById(R.id.tvRetweetCt);
+        tvFavoriteCt = findViewById(R.id.tvFavCt);
         ivProfileImage = findViewById(R.id.ivProfileImage);
         btDetailBack = findViewById(R.id.btDetailBack);
         ivTweetPhoto = findViewById(R.id.ivTweetPhoto);
@@ -78,6 +85,15 @@ public class DetailActivity extends AppCompatActivity {
         tvScreenName.setText(user.getScreenName());
         tvTimeStamp.setText(tweet.getFormattedTimeStamp());
         tvBody.setText(tweet.getBody());
+        try {
+            tvTimeDate.setText(tweet.getCreationDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        tvFavoriteCt.setText(Integer.toString(tweet.getFavoriteCt()));
+        tvRetweetCt.setText(Integer.toString(tweet.getRetweetCt()));
+
         Glide.with(ivProfileImage)
                 .load(tweet.user.getProfileImageUrl())
                 .circleCrop()

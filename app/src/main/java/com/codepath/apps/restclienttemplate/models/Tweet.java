@@ -9,8 +9,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcel;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Parcel
 public class Tweet {
@@ -20,7 +25,7 @@ public class Tweet {
     public long id;
     public User user;
     public Entities entities;
-    
+
     public int retweetCt;
     public int favoriteCt;
 
@@ -56,6 +61,7 @@ public class Tweet {
     }
 
     public String getCreatedAt() {
+
         return createdAt;
     }
 
@@ -72,5 +78,21 @@ public class Tweet {
         return formattedString;
     }
 
+    public String getCreationDate() throws ParseException {
+        DateFormat outputDate = new SimpleDateFormat("h:mm aa • dd MMM yyyy");
+        DateFormat inputDate = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.ENGLISH);
 
+        Date date = inputDate.parse(createdAt);
+        String outputString = outputDate.format(date);
+
+        return outputString;
+    }
+
+    public int getRetweetCt() {
+        return retweetCt;
+    }
+
+    public int getFavoriteCt() {
+        return favoriteCt;
+    }
 }
