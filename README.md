@@ -1,8 +1,8 @@
-# Project 2 - *Name of App Here*
+# Project 2 - *Twitterly*
 
-**Name of your app** is an android app that allows a user to view his Twitter timeline. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
+**Twitterly** is an android app that allows a user to view his Twitter timeline. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
 
-Time spent: **X** hours spent in total
+Time spent: **15** hours spent in total
 
 ## User Stories
 
@@ -30,28 +30,31 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [x] Profile of signed-in user displays in top menu-bar
+- [x] Retweet and Like information are displayed
 
-## Video Walkthrough
+## Gif Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src="/twitterly.gif" width=422><br>
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+I am not familiar with JSON and retrieving nested arrays of JSON object proved to be very confusing for me. I also had a lot of issues getting video to display properly.
 
 ## Open-source libraries used
 
 - [Android Async HTTP](https://github.com/codepath/CPAsyncHttpClient) - Simple asynchronous HTTP requests with JSON parsing
 - [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android
+- [Parceler](https://github.com/johncarl81/parceler) - An Android library to serialize Java Objects between Contexts
+- [SimpleVideoView](https://github.com/klinker24/Android-SimpleVideoView) - Wrapper of Android's MediaPlayer for correct aspect-ratio of videos
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2020] [Patricia Booth]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
