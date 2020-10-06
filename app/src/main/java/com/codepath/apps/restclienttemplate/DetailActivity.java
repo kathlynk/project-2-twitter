@@ -81,11 +81,11 @@ public class DetailActivity extends AppCompatActivity {
                 .circleCrop()
                 .into(ivProfileImage);
 
-        if (tweet.entities.media != null) {
+        if (tweet.entities != null) {
 
             // If tweet has a video
             if (tweet.entities.mediaType.equals("video")) {
-
+                vvTweetVideo.setVisibility(View.VISIBLE);
                 ivTweetPhoto.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -119,6 +119,7 @@ public class DetailActivity extends AppCompatActivity {
         } else {
             Glide.with(ivTweetPhoto).clear(ivTweetPhoto);
             ivTweetPhoto.setVisibility(View.GONE);
+            vvTweetVideo.setVisibility(View.INVISIBLE);
         }
     }
 

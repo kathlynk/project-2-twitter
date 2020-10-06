@@ -53,8 +53,6 @@ public class Media {
                 Log.i(TAG, "Media Model URL: " + videoURL);
             }
 
-
-            Log.i(TAG, "Media: " + media.get(i).toString());
         }
         return media;
     }
