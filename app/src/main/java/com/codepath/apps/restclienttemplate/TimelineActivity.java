@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import okhttp3.Headers;
 
+import android.animation.TimeAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +41,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     TwitterClient client;
     RecyclerView rvTweets;
+    FloatingActionButton fbCompose;
     List<Tweet> tweets;
     TweetsAdapter adapter;
     SwipeRefreshLayout swipeContainer;
@@ -91,6 +94,15 @@ public class TimelineActivity extends AppCompatActivity {
             }
         };
 
+        // Floating Action Compose Button
+        fbCompose = findViewById(R.id.fbCompose);
+        fbCompose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ComposeActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        });
 
         // Adds the scroll listener to RecyclerView
         rvTweets.addOnScrollListener(scrollListener);
@@ -109,13 +121,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.compose) {
-            // Compose icon has been selected
-            // Navigate to the compose activity
-            Intent intent = new Intent(this, ComposeActivity.class);
-            startActivityForResult(intent, REQUEST_CODE);
-            return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
 

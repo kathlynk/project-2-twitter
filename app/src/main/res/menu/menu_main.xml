@@ -8,10 +8,6 @@
         android:icon="@drawable/sparkle_twitter_foreground"
         android:title=""
         app:showAsAction="always"></item>
-    <item
-        android:id="@+id/compose"
-        android:icon="@drawable/ic_vector_compose"
-        android:title="Compose"
-        app:showAsAction="always" />
+
 
 </menu>
