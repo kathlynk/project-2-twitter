@@ -6,8 +6,8 @@
     <item
         android:id="@+id/miSparkle"
         android:icon="@drawable/sparkle_twitter_foreground"
-        app:showAsAction="ifRoom|withText"
-        android:title="">
-    </item>
+        android:title=""
+        app:showAsAction="always"></item>
+
 
 </menu>

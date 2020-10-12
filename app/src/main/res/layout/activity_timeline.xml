@@ -182,4 +182,16 @@
     </androidx.appcompat.widget.Toolbar>
     </RelativeLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fbCompose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="70dp"
+        android:src="@drawable/ic_vector_compose"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/twitter_blue_white_logo_background"
+        app:layout_anchorGravity="bottom|right|end" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

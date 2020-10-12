@@ -74,5 +74,7 @@ dependencies {
     annotationProcessor 'org.parceler:parceler:1.1.12'
     // Simple Video View
     implementation 'com.klinkerapps:simple_videoview:1.2.4'
+    // Floating Action Icon
+    implementation 'com.google.android.material:material:1.1.0'
 
 }
