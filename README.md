@@ -2,7 +2,7 @@
 
 **Twitterly** is an android app that allows a user to view his Twitter timeline and post a new tweet. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
 
-Time spent: **X** hours spent in total
+Time spent: **4** hours spent in total
 
 ## User Stories
 
@@ -27,15 +27,12 @@ The following **optional** features are implemented:
 - [ ] When a user leaves the compose view without publishing and there is existing text, prompt to save or delete the draft. If saved, the draft should then be **persisted to disk** and can later be resumed from the compose view.
 - [ ] Enable your app to receive implicit intents from other apps. When a link is shared from a web browser, it should pre-fill the text and title of the web page when composing a tweet. 
 
-The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
-
-## Video Walkthrough
+## Gif Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src="/twitterly-part2.gif" width=422><br>
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
