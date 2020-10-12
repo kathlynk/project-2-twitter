@@ -1,45 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".ComposeActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/compose_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:minHeight="?attr/actionBarSize"
+        app:contentInsetStart="0dp"
+        app:titleTextColor="@android:color/white">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <Button
+                android:id="@+id/btnTweet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rounded_button"
+                android:letterSpacing="0.02"
+                android:minHeight="30dp"
+                android:text="@string/tweet"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btComposeClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentTop="false"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:tint="@color/twitter_icon_selected_blue"
+                app:srcCompat="@drawable/ic_vector_close" />
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/composeContainer"
         android:layout_width="match_parent"
-        app:counterEnabled="true"
-        app:counterMaxLength="280"
         android:layout_height="wrap_content"
-        app:counterTextAppearance="@style/CounterStyle"
-        app:counterOverflowTextAppearance="@style/OverflowCounterStyle">
-        >
-
-    <EditText
-        android:id="@+id/etCompose"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="What's happening?"
-        android:inputType="textMultiLine"
-        android:minLines="5" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-    <Button
-        android:id="@+id/btnTweet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/composeContainer"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/compose_toolbar"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
-        android:text="@string/tweet" />
+        android:background="@drawable/bottom_border"
+        app:counterEnabled="true"
+        app:counterMaxLength="280"
+        app:counterOverflowTextAppearance="@style/OverflowCounterStyle"
+        app:counterTextAppearance="@style/CounterStyle">
+        >
+
+        <EditText
+            android:id="@+id/etCompose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#FFFFFF"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="What's happening?"
+            android:inputType="textMultiLine"
+            android:minLines="5"
+            android:shadowColor="#FFFFFF"
+            android:textColorHighlight="@android:color/transparent" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 </RelativeLayout>
