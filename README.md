@@ -64,18 +64,12 @@ The following **optional** features are implemented:
 - [x] User can tap a tweet to display a "detailed" view of that tweet
 - [ ] User can open the twitter app offline and see last loaded tweets
 - [x] On the Twitter timeline, leverage the CoordinatorLayout to apply scrolling behavior that hides / shows the toolbar.
-- [x] Replace all icon drawables and other static image assets with [vector drawables](http://guides.codepath.org/android/Drawables#vector-drawables) where appropriate.
 - [x] User can see embedded image media within the tweet detail view
 - [x] User can watch embedded video within the tweet.
 - [x] User can tap a tweet to display a "detailed" view of that tweet.
 - [x] User can **click a link within a tweet body** on tweet details view. The click will launch the web browser with relevant page opened.
-- [ ] User can view following / followers list through any profile they view.
 - [x] User is using **"Twitter branded" colors and styles**
 
-The following **additional** features are implemented:
-
-- [x] Profile of signed-in user displays in top menu-bar
-- [x] Retweet and Like information are displayed
 
 ## Gif Walkthrough
 
